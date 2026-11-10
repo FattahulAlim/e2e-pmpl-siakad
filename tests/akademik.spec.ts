@@ -1,10 +1,12 @@
-import { test, expect } from "@playwright/test";
-import { LoginPage } from "../pages/LoginPage";
-import { AkademikPage } from "../pages/AkademikPage";
+import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/LoginPage';
+import { AkademikPage } from '../pages/AkademikPage';
 
-test.describe("Alur Akademik SIAKAD", () => {
+test.describe('Alur Akademik SIAKAD', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/beranda");
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login(process.env.SIAKAD_USER!, process.env.SIAKAD_PASS!);
     await expect(page).toHaveURL(/beranda/);
   });
 
